@@ -1,15 +1,15 @@
 from typing import Any
 from django.shortcuts import render
 from django.views import generic
-from .models import Item
+from .models import Item, MEAL_TYPE
 
 class MenuList(generic.ListView):
     queryset= Item.objects.order_by("date_created")
     template_name= "index.html"
 
-    def get_context_data(self) :
-        context= {'meals': ['pizza', 'pasta'], 
-                  'ingredients' : ['things']}
+    def get_context_data(self, **Kwargs ) :
+        context = super().get_context_data(**Kwargs)
+        context['meals'] = MEAL_TYPE
         return context
 
 class MealItemDetail(generic.DetailView):
